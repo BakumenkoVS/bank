@@ -1,0 +1,27 @@
+{
+  "arrowParens": "avoid",
+  "useTabs": true,
+  "semi": false,
+  "trailingComma": "none",
+
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/core/component/(.*)$",
+    "^@/core/components/(.*)$",
+    "^@/core/components/layout/(.*)$",
+    "^@/core/components/screens/(.*)$",
+    "^@/core/ui/(.*)$",
+    "^@/styles/(.*)$",
+    "^@/config/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/services/(.*)$",
+    "^@/store/(.*)$",
+    "^@/api/(.*)$",
+    "^.+\\.(template\\.html|module\\.scss)$",
+    "^../(.*)",
+    "^./(.*)"
+  ],
+  
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
