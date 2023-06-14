@@ -1,6 +1,10 @@
-export class Home {
-    render(){
+import { BaseScreen } from "@/core/component/base-screen.component"
 
-        return '<p>Home</p>'
+export class Home extends BaseScreen {
+    constructor(){
+        super({title: 'Home'})
     }
+	render() {
+		return "<p>Home</p>"
+	}
 }
