@@ -4,6 +4,7 @@ import styles from "./home.module.scss"
 import template from "./home.template.html"
 
 import RenderService from "@/core/services/render.service"
+import { $R } from "@/core/rquery/rquery.lib"
 
 export class Home extends BaseScreen {
 	constructor() {
@@ -11,6 +12,9 @@ export class Home extends BaseScreen {
 	}
 	render() {
 		const element = RenderService.htmlToElement(template, [], styles)
-		return element.outerHTML
+
+		$R(element).find('h1').css('color', 'green')
+
+		return element
 	}
 }
