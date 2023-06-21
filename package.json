@@ -8,7 +8,7 @@
 		"build": "webpack --mode production"
 	},
 	"author": {
-		"name": "Vlad Bakumenko",
+		"name": "BakumenkoVS",
 		"email": "tinyyy11@gmail.com"
 	},
 	"license": "ISC",
