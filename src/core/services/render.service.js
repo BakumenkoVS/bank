@@ -44,11 +44,10 @@ class RenderService {
 
 					return instance.constructor.name.toLowerCase() === componentName
 				})
-
 				if (foundComponent) {
 					const componentContent =
 						foundComponent instanceof ChildComponent
-							? foundComponent().render()
+							? foundComponent.render()
 							: new foundComponent().render()
 					element.replaceWith(componentContent)
 				} else {
