@@ -1,3 +1,5 @@
+import { formatCardNumberWithDashes } from "@/utils/format/format-card-number"
+
 class RQuery {
 	/**
 	 *
@@ -77,6 +79,78 @@ class RQuery {
 
 	/**
 	 *
+	 * @param {function(Event): void } callback
+	 * @returns {RQuery}
+	 */
+	click(callback) {
+		this.element.addEventListener("click", callback)
+		return this
+	}
+
+	/**
+	 *
+	 * @param {object} options
+	 * @param {function(Event): void} [options.onInput]
+	 * @param {object} [options.rest]
+	 * @returns {RQuery}
+	 */
+
+	input({ onInput, ...rest }) {
+		if (this.element.tagName.toLowerCase() !== "input")
+			throw new Error("Element must be an input")
+		for (const [key, value] of Object.entries(rest)) {
+			this.element.setAttribute(key, value)
+		}
+
+		if (onInput) {
+			this.element.addEventListener("input", onInput)
+		}
+
+		return this
+	}
+
+	/**
+	 *
+	 * @param {number} [limit]
+	 * @returns {RQuery}
+	 */
+	numberInput(limit) {
+		if (
+			this.element.tagName.toLocaleLowerCase() !== "input" ||
+			this.element.type !== "number"
+		)
+			throw new Error("Element must be an input with type number")
+
+		this.element.addEventListener("input", event => {
+			let value = event.target.value.replace(/[^0-9]/g, "")
+			if (limit) value = value.substring(0, limit)
+			event.target.value = value
+		})
+		return this
+	}
+
+	/**
+	 *
+	 * @returns {RQuery}
+	 */
+	creditCardInput() {
+		const limit = 16
+		if (
+			this.element.tagName.toLocaleLowerCase() !== "input" ||
+			this.element.type !== "text"
+		)
+			throw new Error("Element must be an input with type text")
+
+		this.element.addEventListener("input", event => {
+			let value = event.target.value.replace(/[^0-9]/g, "")
+			if (limit) value = value.substring(0, limit)
+			event.target.value = formatCardNumberWithDashes(value)
+		})
+		return this
+	}
+
+	/**
+	 *
 	 * @param {string} property
 	 * @param {string} value
 	 * @returns {RQuery}
@@ -87,6 +161,38 @@ class RQuery {
 		}
 
 		this.element.style[property] = value
+		return this
+	}
+
+	/**
+	 *
+	 * @param {string| string[]} classNames
+	 * @returns {RQuery}
+	 */
+	addClass(classNames) {
+		if (Array.isArray(classNames)) {
+			for (const className of classNames) {
+				this.element.classList.add(className)
+			}
+		} else {
+			this.element.classList.add(classNames)
+		}
+		return this
+	}
+
+	/**
+	 *
+	 * @param {string| string[]} classNames
+	 * @returns {RQuery}
+	 */
+	removeClass(classNames) {
+		if (Array.isArray(classNames)) {
+			for (const className of classNames) {
+				this.element.classList.remove(className)
+			}
+		} else {
+			this.element.classList.remove(classNames)
+		}
 		return this
 	}
 }
